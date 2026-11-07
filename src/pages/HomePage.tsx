@@ -2,7 +2,7 @@ import { useState } from 'react';
 import { isDemo } from '../data/demo';
 import { assess, carName, money } from '../engine/assess';
 import type { Inspection } from '../engine/types';
-import { VerdictPill } from '../components/ScoreBadge';
+import { ScoreRing, VerdictPill } from '../components/ScoreBadge';
 import { href } from '../router';
 
 interface Props {
@@ -18,37 +18,53 @@ export function HomePage({ inspections, onDelete, onLoadDemo, onClearDemo }: Pro
   const hasDemo = inspections.some(isDemo);
 
   return (
-    <main className="page">
-      <header className="hero">
-        <p className="eyebrow">Used car inspection</p>
-        <h1>lemoncheck</h1>
-        <p className="lead">
-          Walk around a used car with a checklist that tells you what to look for. Get a condition score, a list of
-          problems with typical repair costs, and an offer that accounts for them.
-        </p>
-        <div className="actions">
-          <a className="btn btn-primary" href={href({ name: 'new' })}>
-            Start a new inspection
-          </a>
-          {inspections.length >= 2 && (
-            <a className="btn" href={href({ name: 'compare' })}>
-              Compare {inspections.length} cars
-            </a>
-          )}
-          {hasDemo ? (
-            <button type="button" className="btn" onClick={onClearDemo}>
-              Remove sample cars
-            </button>
-          ) : (
-            <button type="button" className="btn" onClick={onLoadDemo}>
-              Try a demo
-            </button>
-          )}
-        </div>
-        {!hasDemo && inspections.length === 0 && (
-          <p className="muted small">The demo adds three made-up cars so you can see a report and a comparison.</p>
-        )}
+    <main className="page page-home">
+      <header className="home-brand">
+        <img src={`${import.meta.env.BASE_URL}favicon.svg`} alt="" width="32" height="32" />
+        <span>lemoncheck</span>
+        <span className="home-privacy">Saved on this device</span>
       </header>
+
+      <section className="hero" aria-labelledby="home-title">
+        <div className="hero-copy">
+          <p className="eyebrow">Used-car inspection</p>
+          <h1 id="home-title">Know the car <span>before you buy.</span></h1>
+          <p className="lead">
+            Follow a guided walkaround, spot deal-breakers, and see how estimated repairs could affect your offer.
+          </p>
+          <div className="actions">
+            <a className="btn btn-primary" href={href({ name: 'new' })}>
+              Start an inspection <span aria-hidden="true">↗</span>
+            </a>
+            {!hasDemo && (
+              <button type="button" className="btn" onClick={onLoadDemo}>Try sample cars</button>
+            )}
+          </div>
+        </div>
+        <div className="hero-visual" aria-hidden="true">
+          <svg viewBox="0 0 360 228" focusable="false">
+            <defs>
+              <pattern id="inspection-grid" width="18" height="18" patternUnits="userSpaceOnUse">
+                <path d="M18 0H0V18" fill="none" stroke="#4b5043" strokeWidth="1" />
+              </pattern>
+            </defs>
+            <rect x="1" y="1" width="358" height="226" rx="18" fill="url(#inspection-grid)" stroke="#565c4c" />
+            <path d="M22 76V52h24m268 0h24v24M22 154v24h24m268 0h24v-24"
+              stroke="#e5f278" strokeWidth="2" fill="none" />
+            <path d="M35 151h290M180 50v112" stroke="#78806d" strokeDasharray="4 6" />
+            <path d="M48 132l7-23 37-9 32-28c8-7 18-11 30-11h49c13 0 24 4 34 13l31 27 27 7 16 17v17h-23m-48 0H124m-48 0H48z"
+              fill="#252a20" stroke="#e5f278" strokeWidth="2.5" strokeLinejoin="round" />
+            <path d="M109 100l25-21c6-5 13-8 22-8h44c10 0 19 3 26 10l21 19zm70-29v29m-41 13h14m61 0h14"
+              fill="none" stroke="#a8b68a" strokeWidth="2" strokeLinejoin="round" />
+            <circle cx="100" cy="143" r="23" fill="#24291e" stroke="#e5f278" strokeWidth="2.5" />
+            <circle cx="264" cy="143" r="23" fill="#24291e" stroke="#e5f278" strokeWidth="2.5" />
+            <circle cx="100" cy="143" r="9" fill="none" stroke="#a8b68a" strokeWidth="2" />
+            <circle cx="264" cy="143" r="9" fill="none" stroke="#a8b68a" strokeWidth="2" />
+            <text x="22" y="29">INSPECTION FIELD GUIDE</text>
+            <text x="22" y="207">BODY / ENGINE / ROAD TEST</text>
+          </svg>
+        </div>
+      </section>
 
       {sorted.length === 0 ? (
         <section className="empty">
@@ -62,7 +78,20 @@ export function HomePage({ inspections, onDelete, onLoadDemo, onClearDemo }: Pro
         </section>
       ) : (
         <section>
-          <h2 className="section-title">Your inspections</h2>
+          <div className="garage-head">
+            <div>
+              <p className="eyebrow">Inspection history</p>
+              <h2 className="section-title">Your inspections <span className="count">{sorted.length}</span></h2>
+            </div>
+            <div className="actions">
+              {inspections.length >= 2 && (
+                <a className="btn" href={href({ name: 'compare' })}>Compare {inspections.length} cars</a>
+              )}
+              <button type="button" className="btn" onClick={hasDemo ? onClearDemo : onLoadDemo}>
+                {hasDemo ? 'Remove sample cars' : 'Try sample cars'}
+              </button>
+            </div>
+          </div>
           <ul className="cards">
             {sorted.map((i) => {
               const a = assess(i);
@@ -74,13 +103,15 @@ export function HomePage({ inspections, onDelete, onLoadDemo, onClearDemo }: Pro
                         {carName(i.car)}
                         {isDemo(i) && <span className="tag sample">Sample</span>}
                       </h3>
-                      <VerdictPill verdict={a.verdict.id} title={a.verdict.title} />
+                    </div>
+                    <div className="card-condition">
+                      <ScoreRing score={a.score} verdict={a.verdict.id} size={62} />
+                      <div>
+                        <p className="eyebrow">Condition</p>
+                        <VerdictPill verdict={a.verdict.id} title={a.verdict.title} />
+                      </div>
                     </div>
                     <dl className="facts">
-                      <div>
-                        <dt>Score</dt>
-                        <dd>{a.score ?? '–'}</dd>
-                      </div>
                       <div>
                         <dt>Asking</dt>
                         <dd>{i.car.askingPrice !== null ? money(i.car.askingPrice) : '–'}</dd>
@@ -98,7 +129,7 @@ export function HomePage({ inspections, onDelete, onLoadDemo, onClearDemo }: Pro
                     </dl>
                   </a>
                   <div className="card-foot">
-                    <a href={href({ name: 'report', id: i.id })}>Report</a>
+                    <a href={href({ name: 'report', id: i.id })}>View report <span aria-hidden="true">↗</span></a>
                     {confirming === i.id ? (
                       <span className="confirm">
                         Delete this inspection?
@@ -123,8 +154,7 @@ export function HomePage({ inspections, onDelete, onLoadDemo, onClearDemo }: Pro
       )}
 
       <footer className="foot muted">
-        lemoncheck helps you spot problems; it doesn't replace a mechanic's pre-purchase inspection. Repair costs are
-        rough averages.
+        Repair costs are rough estimates. For a purchase decision, consider a mechanic’s pre-purchase inspection.
       </footer>
     </main>
   );
