@@ -7,13 +7,14 @@ lemoncheck helps people inspect a used car and turn what they find into a fair o
 | Milestone | Status | Estimate |
 |---|---|---|
 | v0.1 Checklist, score, verdict, offer, compare | ✅ done | |
-| v0.2 Better on the lot | not started | 6–8 h |
-| v0.3 Costs that fit the car | not started | 5–7 h |
-| v0.4 Share and keep | not started | 5–7 h |
-| v1.0 Ready for everyone | not started | 5–7 h |
-| **Total planned** | | **21–29 h** |
+| v0.2 Better on the lot | not started | 8–11 h |
+| v0.3 Costs that fit the car | not started | 7–9 h |
+| v0.4 Share and keep | not started | 8–11 h |
+| v1.0 Ready for everyone | not started | 6–9 h |
+| **Total planned** | | **29–40 h** |
 
 Each item below is sized to be one or two commits.
+Estimates include implementation, testing offline and mobile behavior, and verifying that older inspections still open.
 
 ## Principles
 
@@ -21,6 +22,7 @@ Each item below is sized to be one or two commits.
 2. **Explain every number.** The score, verdict, costs and offer each say where they came from.
 3. **Never overrule a mechanic.** The app helps buyers decide whether a car is worth a professional inspection; it doesn't replace one.
 4. **The engine stays pure.** Logic lives in `src/engine/` with tests; components only display it.
+5. **Use made-up sample data only.** All examples, demos, screenshots, and tests use fictional data. Never include real personal or customer data.
 
 ---
 
@@ -36,7 +38,7 @@ Each item below is sized to be one or two commits.
 - [x] "Try a demo" with three made-up sample cars
 - [x] 33 unit tests for the engine, storage and demo data; CI on Node 20 / 22 / 24 with `npm ci`
 
-## v0.2: Better on the lot (6–8 h)
+## v0.2: Better on the lot (8–11 h)
 
 - [ ] **Live site** on Vercel, linked from the README and the repo sidebar
 
@@ -49,7 +51,7 @@ Each item below is sized to be one or two commits.
 
 **Done when:** the app loads with the network off after one visit, quick mode produces a verdict from 12 answers, and the new components have tests.
 
-## v0.3: Costs that fit the car (5–7 h)
+## v0.3: Costs that fit the car (7–9 h)
 
 - [ ] **Car class:** compact, SUV/truck, luxury, EV; each scales repair costs (luxury parts cost more)
 - [ ] **EV and hybrid checklist:** hide oil and exhaust items; add battery health, charging port and cable, and regenerative braking checks
@@ -59,7 +61,7 @@ Each item below is sized to be one or two commits.
 
 **Done when:** the same issue costs more on a luxury car than a compact in a test, an EV inspection shows no oil change, and a custom quote replaces the estimate in the offer.
 
-## v0.4: Share and keep (5–7 h)
+## v0.4: Share and keep (8–11 h)
 
 - [ ] **Export and import** an inspection as a JSON file, validated with the same cleaning as storage
 - [ ] **Printable report** page laid out for paper or PDF from the browser
@@ -68,7 +70,7 @@ Each item below is sized to be one or two commits.
 
 **Done when:** an export → import round trip gives an identical inspection, photos survive a reload, and a shared link opens the report without the original device.
 
-## v1.0: Ready for everyone (5–7 h)
+## v1.0: Ready for everyone (6–9 h)
 
 - [ ] Accessibility pass: screen reader labels, focus order, contrast checked in both themes
 - [ ] End-to-end test of a full inspection in a browser (Playwright)
