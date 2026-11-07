@@ -7,7 +7,7 @@ lemoncheck helps people inspect a used car and turn what they find into a fair o
 | Milestone | Status | Estimate |
 |---|---|---|
 | v0.1 Checklist, score, verdict, offer, compare | ✅ done | |
-| v0.2 Better on the lot | not started | 8–11 h |
+| v0.2 Better on the lot | in progress | 8–11 h |
 | v0.3 Costs that fit the car | not started | 7–9 h |
 | v0.4 Share and keep | not started | 8–11 h |
 | v1.0 Ready for everyone | not started | 6–9 h |
@@ -40,8 +40,7 @@ Estimates include implementation, testing offline and mobile behavior, and verif
 
 ## v0.2: Better on the lot (8–11 h)
 
-- [ ] **Live site** on Vercel, linked from the README and the repo sidebar
-
+- [x] **[Live site on Vercel](https://lemoncheck-red.vercel.app/)**, linked from the README and the repo sidebar
 - [ ] **Works offline** as an installable app (PWA with a service worker), since car lots often have poor signal
 - [ ] **Resume where you left off:** open the first unanswered item, not just the first unfinished section
 - [ ] **Quick mode:** a 12-item shortlist for a first look before a full inspection

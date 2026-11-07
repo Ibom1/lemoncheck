@@ -2,6 +2,8 @@
 
 A used car inspection assistant for your phone. It walks you around the car with a checklist of what to look for and how to check it. Then it scores the car's condition, flags deal-breakers, estimates what the problems will cost to fix, and suggests an offer that accounts for them.
 
+[Open Lemoncheck on Vercel](https://lemoncheck-red.vercel.app/) and select **Try sample cars** to explore three fictional inspections.
+
 ![Report for a sample car: "Fair, negotiate", score 92, repairs $1,600–$5,000, suggested offer $12,200](docs/report.png)
 
 ## The problem
@@ -24,7 +26,7 @@ Private buyers looking at a used car from a dealer or a private seller, with no 
 - **Mileage check:** flags odometer readings that are high or suspiciously low for the car's age.
 - **Compare cars:** ranks every car you've inspected by real cost (price plus repairs), with deal-breakers last.
 - **Copy summary:** a plain-text summary to send to someone or keep in your notes.
-- **Try a demo:** loads three made-up cars (one to negotiate on, one clean, one with a deal-breaker) so you can see a report and a comparison without inspecting anything.
+- **Try sample cars:** loads three made-up cars (one to negotiate on, one clean, one with a deal-breaker) so you can see a report and a comparison without inspecting anything.
 
 ## Privacy
 
@@ -56,7 +58,7 @@ The interesting logic lives in `src/engine/` and has no React in it, so it is te
 | `src/data/checklist.ts` | The checklist: sections, items, weights, repair cost ranges, deal-breakers and follow-up rules |
 | `src/engine/checklist.ts` | Works out which items are visible (follow-ups appear and disappear with their trigger) and progress per section |
 | `src/engine/assess.ts` | Score, verdict and its caps, repair estimate, suggested offer, mileage check, ranking, text summary |
-| `src/data/demo.ts` | The three sample cars behind "Try a demo", all made up |
+| `src/data/demo.ts` | The three made-up cars behind "Try sample cars" |
 | `src/engine/storage.ts` | Saves to and loads from localStorage, defensively: corrupted, old or blocked storage never crashes the app |
 | `src/pages/` | Home, car details form, checklist, report, compare |
 
