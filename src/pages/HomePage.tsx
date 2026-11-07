@@ -22,7 +22,6 @@ export function HomePage({ inspections, onDelete, onLoadDemo, onClearDemo }: Pro
       <header className="home-brand">
         <img src={`${import.meta.env.BASE_URL}favicon.svg`} alt="" width="32" height="32" />
         <span>lemoncheck</span>
-        <span className="home-privacy">Saved on this device</span>
       </header>
 
       <section className="hero" aria-labelledby="home-title">
@@ -74,7 +73,6 @@ export function HomePage({ inspections, onDelete, onLoadDemo, onClearDemo }: Pro
             <li>Go through six sections: paperwork, exterior, tires, engine, interior and the test drive.</li>
             <li>Get a verdict, the issues to fix, and a suggested offer.</li>
           </ol>
-          <p className="muted">Everything is saved in this browser only. Nothing is sent anywhere.</p>
         </section>
       ) : (
         <section>
@@ -154,6 +152,7 @@ export function HomePage({ inspections, onDelete, onLoadDemo, onClearDemo }: Pro
       )}
 
       <footer className="foot muted">
+        Inspections stay in this browser.
         Repair costs are rough estimates. For a purchase decision, consider a mechanic’s pre-purchase inspection.
       </footer>
     </main>
